@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+<div class="content-wrapper">
+    {% url 'handover:top' as top_url %}
+    <form action="{{ top_url }}" method="get">
+        <div class="container">
+            <div class="form-group">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card card-info" style="margin:50px 0">
+                                <div class="card-header">
+                                    <h3 class="card-title">検索フォーム</h3>
+                                </div>
+                                <div class="card-body">
+                                    {{ error }}
+                                    <div class="form-group row">
+                                        <label for="formGroupExampleInput" class="col-sm-4 form-control-label">
+                                            投稿者ID
+                                        </label>
+                                        <div class="col-sm-6">
+                                            {{ form.search_contributor_ID }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="formGroupExampleInput" class="col-sm-4 form-control-label">
+                                            日付
+                                        </label>
+                                        <div class="col-sm-6">
+                                            {{ form.search_date }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="formGroupExampleInput" class="col-sm-4 form-control-label">
+                                            タグ
+                                        </label>
+                                        <div class="col-sm-6">
+                                            {{ form.search_tag }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <div  class="col text-center">
+                                                <button type="submit" class="btn btn-info btn-block btn-flat">
+                                                    検索
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+<script type="text/javascript">
+$(function () {
+    $('.select2bs4').select2({
+      theme: 'bootstrap4',
+      dropdownAutoWidth: true,
+      width: 'auto'
+    })
+})
+
+$(function() {
+   $( ".date_picker" ).daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+   $( ".date_picker" ).on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('YYYY-MM-DD') + '～' + picker.endDate.format('YYYY-MM-DD'));
+  });
+   $( ".date_picker" ).on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+});
+
+$(function(){
+    $('button[type="submit"]').on('click', function(){
+        $(this).css('pointer-events','none');
+    });
+});
+</script>
+{% endblock %}

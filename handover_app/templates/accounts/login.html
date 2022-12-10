@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>login</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="{% static 'AdminLTE/plugins/bootstrap/css/bootstrap.min.css'%}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{% static 'AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css'%}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'AdminLTE/plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'AdminLTE/dist/css/adminlte.min.css'%}">
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  </head>
+
+  <!-- Script -->
+  <div>
+    <!-- jQuery 3 -->
+    <script src="{% static 'AdminLTE/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="{% static 'AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+ </div>
+  <!-- /.Script -->
+
+  <body class="hold-transition login-page">
+  <!-- login -->
+    <div class="login-box">
+      <!--login-form -->
+      <div class="card bg-light mb-3">
+        <div class="card-body login-box-body">
+          <p class="login-box-msg">Sign in to start your session</p>
+          <!--user pass -->
+          <form action="" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="form-group has-feedback">
+                {{ field }}
+              </div>
+            {% endfor %}
+            <!-- /.user pass -->
+            <!-- error -->
+            <div class="row">
+              {% for error in form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                  <p>{{ error }}</p>
+                </div>
+              {% endfor %}
+              <!-- /.error -->
+              <!-- button -->
+              <div class="col-6">
+                <div  class="col text-center">
+                  <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+              </div>
+              {% url 'accounts:guest_login' as guest_login %}
+              <div class="col-6">
+                <div  class="col text-center">
+                  <a href="{{ guest_login }}" type="submit" class="btn btn-primary btn-block">
+                    guest login
+                  </a>
+                </div>
+              </div>
+              <!-- /.button -->
+            </div>
+          </form>
+          <!--user pass -->
+        </div>
+      </div>
+      <!-- /.login-form -->
+    </div>
+  <!-- /.login -->
+  </body>
+</html>

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+{% if request.user.is_staff %}
+<section class="col-lg-12 content" style="padding: 20px">
+  <div class="container-fluid">
+    <div class="content-wrapper">
+      <!-- post form -->
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card card-secondary">
+          <div class="card-header">
+            <h3 class="card-title">引継投稿</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <!-- handover contents -->
+          <div class="card-body">
+            {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible">
+              <h6><i class="icon fas fa-ban"></i> 登録できませんでした</h6>
+              {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+            <div class="form-group row">
+              <label for="formGroupExampleInput" class="col-sm-12 form-control-label">
+                内容
+              </label>
+              <div class="col-sm-12">
+                {{ form.handover }}
+              </div>
+            </div>
+            <!-- /.handover contents -->
+            <!-- handover image -->
+            <div class="form-group row">
+              <label for="formGroupExampleInput" class="col-sm-12 form-control-label">
+                画像　(GIF JPEG PNG TIFF BMPから選択)
+              </label>
+              <div class="col-sm-12">
+                {{ image_form.image }}
+              </div>
+            </div>
+            <!-- /.handover image -->
+
+            <!-- handover post form -->
+            <div class="form-group row">
+              <label for="formGroupExampleInput" class="col-sm-12 form-control-label">
+                タグ
+              </label>
+              <div class="col-sm-12">
+                {{ form.tag }}
+              </div>
+            </div>
+            <!-- /.handover post form -->
+          </div>
+          <div class="card-footer">
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <div  class="col text-center">
+                  <button type="submit" class="btn btn-sm btn-outline-secondary btn-block" name="post">
+                    投稿
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- /.post form -->
+    </div>
+  </div>
+</section>
+{% else %}
+<a>Geustでは投稿機能はご利用できません</a>
+{% endif %}
+</body>
+
+<script type="text/javascript">
+$(function () {
+    $('.select2bs4').select2({
+      theme: 'bootstrap4',
+      dropdownAutoWidth: true,
+      width: 'auto'
+    })
+})
+
+$(function(){
+    $('button[type="submit"]').on('click', function(){
+        $(this).css('pointer-events','none');
+    });
+});
+</script>
+
+{% endblock %}
