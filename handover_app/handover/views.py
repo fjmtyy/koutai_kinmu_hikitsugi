@@ -149,7 +149,6 @@ class HandoverListView(HandoverPostView, ListView):
     def get_queryset(self):
         """
         インスタンス化された情報を基にqueryを生成している
-        検索情報がなければ直近1日のデータを表示する
         :return:
         """
         self.get_search_data()
